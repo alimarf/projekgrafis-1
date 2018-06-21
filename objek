@@ -1,0 +1,159 @@
+package org.yourorghere;
+
+import javax.media.opengl.GL;
+import javax.media.opengl.glu.GLU;
+import javax.media.opengl.glu.GLUquadric;
+
+public class Objek {
+
+    static void Balok
+        (GL gl) {
+        gl.glBegin(GL.GL_POLYGON);/* f1: Surface bagian depan */
+
+        gl.glVertex3f(0.0f, 0.0f, 0.0f);
+        gl.glVertex3f(0.0f, 0.0f, 1.0f);
+        gl.glVertex3f(2.0f, 0.0f, 1.0f);
+        gl.glVertex3f(2.0f, 0.0f, 0.0f);
+        gl.glEnd();
+        
+        gl.glBegin(GL.GL_POLYGON);/* f2: Surface bagian bawah (ABFE) */
+
+        gl.glVertex3f(0.0f, 0.0f, 0.0f);
+        gl.glVertex3f(2.0f, 0.0f, 0.0f);
+        gl.glVertex3f(2.0f, 1.0f, 0.0f);
+        gl.glVertex3f(0.0f, 1.0f, 0.0f);
+        gl.glEnd();
+        gl.glBegin(GL.GL_POLYGON);/* f3:Surface bagian belakang (CDHG)*/
+
+        gl.glVertex3f(2.0f, 1.0f, 0.0f);
+        gl.glVertex3f(2.0f, 1.0f, 1.0f);
+        gl.glVertex3f(0.0f, 1.0f, 1.0f);
+        gl.glVertex3f(0.0f, 1.0f, 0.0f);
+        gl.glEnd();
+        
+//        gl.glBegin(GL.GL_POLYGON);/* f4: Surface bagian atas (EFGH)*/
+//
+//        gl.glVertex3f(1.0f, 1.0f, 1.0f);
+//        gl.glVertex3f(1.0f, 0.0f, 1.0f);
+//        gl.glVertex3f(0.0f, 0.0f, 1.0f);
+//        gl.glVertex3f(0.0f, 1.0f, 1.0f);
+//        gl.glEnd();
+        gl.glBegin(GL.GL_POLYGON);/* f5: Surface bagian kiri
+    (ADEH)*/
+
+        gl.glVertex3f(0.0f, 0.0f, 0.0f);
+        gl.glVertex3f(0.0f, 1.0f, 0.0f);
+        gl.glVertex3f(0.0f, 1.0f, 1.0f);
+        gl.glVertex3f(0.0f, 0.0f, 1.0f);
+        gl.glEnd();
+        gl.glBegin(GL.GL_POLYGON);/* f6: Surface bagian kanan (BCFG)*/
+
+        gl.glVertex3f(2.0f, 0.0f, 0.0f);
+        gl.glVertex3f(2.0f, 0.0f, 1.0f);
+        gl.glVertex3f(2.0f, 1.0f, 1.0f);
+        gl.glVertex3f(2.0f, 1.0f, 0.0f);
+        gl.glEnd();
+    }
+
+
+    
+    static void kepala(GL gl){
+        float BODY_RADIUS = 0.5f;
+        int SLICES = 10;
+        int STACKS = 30;
+        GLU glu = new GLU();
+        GLUquadric q = glu.gluNewQuadric();
+        glu.gluSphere(q, BODY_RADIUS, SLICES, STACKS);
+    }
+    static void badan(GL gl) {
+        float BODY_LENGTH = 2f;
+        float BODY_RADIUS = 0.3f;
+        int SLICES = 30;
+        int STACKS = 30;
+        GLU glu = new GLU();
+        GLUquadric q = glu.gluNewQuadric();
+        glu.gluCylinder(q, BODY_RADIUS, BODY_RADIUS, BODY_LENGTH, SLICES, STACKS);
+        glu.gluDisk(q, 0.0f, BODY_RADIUS, SLICES, STACKS); //lingkaran untuk tutup atas     
+        gl.glTranslatef(0.0f, 0.0f, BODY_LENGTH);
+        glu.gluDisk(q, 0.0f, BODY_RADIUS, SLICES, STACKS); //lingkaran untuk tutup bawah    
+    
+   
+
+    }
+    static void tangan_kiri(GL gl){
+        
+        float BODY_RADIUS = 0.1f;  
+        float BODY_RADIUST = 0.95f;  
+        int SLICES = 30;  
+        int STACKS = 30;  
+        float BODY_LENGTH = 2f;  
+  
+        GLU glu = new GLU();  
+        GLUquadric q = glu.gluNewQuadric();  
+         glu.gluCylinder(q, 0.3, 0.3, 1f, SLICES, STACKS);  
+        glu.gluDisk(q, 0.0f, 0.3, SLICES, STACKS);  
+        gl.glTranslatef(0.0f, 0.0f, 1f);  
+        glu.gluDisk(q, 0.0f, 0.3, SLICES, STACKS);  
+  
+        gl.glRotatef(180, 0, 0, 0);  
+        double clip_planetka[] = {0.0, 0.0, -2.0, 0.5};  
+        gl.glClipPlane(GL.GL_CLIP_PLANE1, clip_planetka, 0);  
+        gl.glEnable(GL.GL_CLIP_PLANE1);  
+        glu.gluSphere(q, 0.3, SLICES, STACKS);  
+        glu.gluDeleteQuadric(q);  
+        gl.glDisable(GL.GL_CLIP_PLANE1);  
+        gl.glTranslatef(0.0f, 0.0f, 0.25f);  
+  
+        gl.glTranslatef(0, 0, 0.75f);  
+        gl.glRotatef(180, 0, 0, 0);  
+        double clip_planetkb[] = {0.0, 0.0, -2.0, 0.5};  
+        gl.glClipPlane(GL.GL_CLIP_PLANE1, clip_planetkb, 0);  
+        gl.glEnable(GL.GL_CLIP_PLANE1);  
+        glu.gluSphere(q, 0.3, SLICES, STACKS);  
+        glu.gluDeleteQuadric(q);  
+        gl.glDisable(GL.GL_CLIP_PLANE1);  
+        gl.glTranslatef(0.0f, 0.0f, 0.25f);  
+    }
+    
+    static void tangan_kanan(GL gl){
+         float BODY_RADIUS = 0.1f;  
+        float BODY_RADIUST = 0.95f;  
+        int SLICES = 30;  
+        int STACKS = 30;  
+        float BODY_LENGTH = 2f;  
+        GLU glu = new GLU();  
+        GLUquadric q = glu.gluNewQuadric();  
+        
+        glu.gluCylinder(q, 0.3, 0.3, 1f, SLICES, STACKS);  
+        glu.gluDisk(q, 0.0f, 0.3, SLICES, STACKS);  
+        gl.glTranslatef(0.0f, 0.0f, 1f);  
+        glu.gluDisk(q, 0.0f, 0.3, SLICES, STACKS);  
+  
+        gl.glRotatef(180, 0, 0, 0);  
+        double clip_planetkaa[] = {0.0, 0.0, -2.0, 0.5};  
+        gl.glClipPlane(GL.GL_CLIP_PLANE1, clip_planetkaa, 0);  
+        gl.glEnable(GL.GL_CLIP_PLANE1);  
+        glu.gluSphere(q, 0.3, SLICES, STACKS);  
+        glu.gluDeleteQuadric(q);  
+        gl.glDisable(GL.GL_CLIP_PLANE1);  
+        gl.glTranslatef(0.0f, 0.0f, 0.25f);  
+  
+        gl.glTranslatef(0, 0, 0.75f);  
+        gl.glRotatef(180, 0, 0, 0);  
+        double clip_planetkbb[] = {0.0, 0.0, -2.0, 0.5};  
+        gl.glClipPlane(GL.GL_CLIP_PLANE1, clip_planetkbb, 0);  
+        gl.glEnable(GL.GL_CLIP_PLANE1);  
+        glu.gluSphere(q, 0.3, SLICES, STACKS);  
+        glu.gluDeleteQuadric(q);  
+        gl.glDisable(GL.GL_CLIP_PLANE1);  
+          
+        gl.glTranslatef(0.0f, -0.4f, -0.15f);  
+        gl.glRotatef(-90, 1, 1, 1);  
+    }
+    
+
+   
+
+    
+    
+}
