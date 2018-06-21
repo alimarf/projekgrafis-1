@@ -1,0 +1,26 @@
+ static void Gear (GL gl) {
+        float angle = 0.0f;
+      float direction = 3f;
+        
+      gl.glRotatef(angle,0,0,1);
+        float sudut =8;
+        float delta = 360/sudut;
+        for(int i =0;i<sudut;i++){
+            
+            if(delta <360){
+           gl.glRotatef(delta,0,0,1); 
+        gl.glBegin(GL.GL_POLYGON);
+
+        gl.glVertex3f(0.0f, 0f, 0.0f);
+        gl.glVertex3f(0.0f, 0f, 0.2f);
+        gl.glVertex3f(0.6f, 0f, 0.7f);
+        gl.glVertex3f(1.6f, 0f, 0.5f);
+        gl.glVertex3f(1.6f, 0f, 0f);
+        gl.glVertex3f(0.6f, 0f, -0.4f);
+        gl.glEnd();
+         }
+            delta += 45;
+                }
+        angle ++;
+        
+    }
