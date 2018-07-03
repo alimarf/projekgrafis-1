@@ -47,14 +47,18 @@ public class Prografuas extends JFrame {
                 System.out.println("typed " + e.getKeyCode());
             }
 
-            public void keyPressed(KeyEvent e) {
-                System.out.println("pressed " + e.getKeyCode());
-                glrender.Key_Pressed(e.getKeyCode());
-                canvas.repaint();
-            }
+//            public void keyPressed(KeyEvent e) {
+//                System.out.println("pressed " + e.getKeyCode());
+//                glrender.Key_Pressed(e.getKeyCode());
+//                canvas.repaint();
+//            }
 
             public void keyReleased(KeyEvent e) {
                 System.out.println("released " + e.getKeyCode());
+            }
+
+            public void keyPressed(KeyEvent ke) {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         };
         canvas.addGLEventListener(glrender);

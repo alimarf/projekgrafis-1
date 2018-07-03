@@ -21,7 +21,7 @@ import javax.media.opengl.glu.GLU;
  *
  * This version is equal to Brian Paul's version 1.2 1999/10/21
  */
-public class GLRenderer implements GLEventListener, MouseListener, MouseMotionListener {
+public class GLRenderer  implements GLEventListener, MouseListener, MouseMotionListener {
 public float rotation;
     public static void main(String[] args) {
         Frame frame = new Frame("Music Box");
@@ -74,7 +74,8 @@ public float rotation;
 //        gl.glMaterialf(GL.GL_FRONT, GL.GL_SHININESS, mshine);
         gl.glEnable(GL.GL_LIGHTING);
         gl.glEnable(GL.GL_LIGHT0);
-//        gl.glEnable(GL.GL_DEPTH_TEST);
+      gl.glEnable(GL.GL_DEPTH_TEST);
+      gl.glEnable(GL.GL_COLOR_MATERIAL);
         gl.glEnable(GL.GL_NORMALIZE);
         drawable.addMouseListener(this);
         drawable.addMouseMotionListener(this);
@@ -96,41 +97,53 @@ public float rotation;
     }
 
     public void display(GLAutoDrawable drawable) {
+        float angle_kanan = 180f;
+        float angle_kiri = 180f;
+        float direction = 5.0f;
+        
         GL gl = drawable.getGL();
         GLU glu = new GLU();
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
-        glu.gluLookAt(0,1, 15, // eye pos           
-                0, 0, 0, // look at                     
-                0, 1, 0);  // up 
+        glu.gluLookAt(0,0,18, // eye pos           
+                0, 3, 0, // look at                     
+                0, 2, 0);  // up 
 
-        gl.glTranslatef(-3f, -4f, 0f);
+        gl.glTranslatef(0f, 0f, 0f);
         gl.glRotatef(view_rotx, 1.0f, 0.0f, 0.0f);
         gl.glRotatef(view_roty, 0.0f, 1.0f, 0.0f);
 //        gl.glTranslatef(-0.5f, -0.5f, -1.0f);
-      gl.glPushMatrix();
-       Objek.Box(gl);
-        gl.glPopMatrix();
-        
-        
+    
+        //BOX
         gl.glTranslatef(0.0f, 0.0f, 0.0f);
         gl.glPushMatrix();
-       Objek.music_box(gl);
+       Objek.Box(gl);
+        gl.glPopMatrix();
+        //Orang
+        gl.glPushMatrix();
+       Objek.orang(gl);
         gl.glPopMatrix();
         rotation += 15f;
-        gl.glRotatef( rotation, 2.8f, 5.5f, -1f);  
-        //tangan kiri
+        gl.glRotatef( rotation, 3.2f, 6f, -1f);
+          //tangan kiri
           gl.glPushMatrix();
        gl.glTranslatef(2.8f, 5.5f, -1f);
-        Objek.tangan_kiri(gl);
+       gl.glRotatef(angle_kiri, -180, -80 , 180);
+        Objek.tangan(gl);
         gl.glPopMatrix();
         
         //tangan kanan
-        gl.glRotatef( rotation, 3.2f, 5.5f, -1f);
           gl.glPushMatrix();
        gl.glTranslatef(3.2f, 5.5f, -1f);
-        Objek.tangan_kanan(gl);
+       gl.glRotatef(angle_kanan, 180, -80 , 180);
+      Objek.tangan(gl);
         gl.glPopMatrix();
+        
+         angle_kanan += direction;
+        if(angle_kanan >= 80 || angle_kanan <= -100){
+            direction = -direction;
+        }
+  
         gl.glFlush();
     }
 
@@ -167,9 +180,5 @@ public float rotation;
     }
 
     public void mouseMoved(MouseEvent e) {
-    }
-
-    void Key_Pressed(int keyCode) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
