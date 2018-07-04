@@ -22,7 +22,8 @@ import javax.media.opengl.glu.GLU;
  * This version is equal to Brian Paul's version 1.2 1999/10/21
  */
 public class GLRenderer  implements GLEventListener, MouseListener, MouseMotionListener {
-public float rotation;
+float rotation;
+float direction = 40;
     public static void main(String[] args) {
         Frame frame = new Frame("Music Box");
         GLCanvas canvas = new GLCanvas();
@@ -97,9 +98,9 @@ public float rotation;
     }
 
     public void display(GLAutoDrawable drawable) {
-        float angle_kanan = 180f;
-        float angle_kiri = 180f;
-        float direction = 5.0f;
+        float angle_kanan = 1f;
+        float angle_kiri = 5f;
+        
         
         GL gl = drawable.getGL();
         GLU glu = new GLU();
@@ -123,27 +124,27 @@ public float rotation;
         gl.glPushMatrix();
        Objek.orang(gl);
         gl.glPopMatrix();
-        rotation += 15f;
-        gl.glRotatef( rotation, 3.2f, 6f, -1f);
-          //tangan kiri
-          gl.glPushMatrix();
-       gl.glTranslatef(2.8f, 5.5f, -1f);
-       gl.glRotatef(angle_kiri, -180, -80 , 180);
-        Objek.tangan(gl);
-        gl.glPopMatrix();
         
-        //tangan kanan
+        rotation += direction;
+        gl.glRotatef( rotation, 3.2f, 6f, -1f);
+          //tangan kanan
+//          gl.glPushMatrix();
+//       gl.glTranslatef(2.8f, 5.5f, -1f);
+//       gl.glRotatef(rotation, 0, 0 , 0);
+//        Objek.tangan(gl);
+//        gl.glPopMatrix();
+        
+        //tangan kiri
           gl.glPushMatrix();
        gl.glTranslatef(3.2f, 5.5f, -1f);
-       gl.glRotatef(angle_kanan, 180, -80 , 180);
+       gl.glRotatef(rotation, 0, 45 , -180);
       Objek.tangan(gl);
         gl.glPopMatrix();
         
-         angle_kanan += direction;
-        if(angle_kanan >= 80 || angle_kanan <= -100){
-            direction = -direction;
+   
+        if(rotation>=45||rotation<=-45){
+            direction=-direction;
         }
-  
         gl.glFlush();
     }
 
@@ -160,6 +161,7 @@ public float rotation;
     }
 
     public void mouseReleased(MouseEvent e) {
+       
     }
 
     public void mousePressed(MouseEvent e) {
