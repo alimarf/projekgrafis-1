@@ -128,11 +128,11 @@ float direction = 40;
         rotation += direction;
         gl.glRotatef( rotation, 3.2f, 6f, -1f);
           //tangan kanan
-//          gl.glPushMatrix();
-//       gl.glTranslatef(2.8f, 5.5f, -1f);
-//       gl.glRotatef(rotation, 0, 0 , 0);
-//        Objek.tangan(gl);
-//        gl.glPopMatrix();
+          gl.glPushMatrix();
+      gl.glTranslatef(2.8f, 5.5f, -1f);
+       gl.glRotatef(rotation, 0, 0 , 0);
+        Objek.tangan(gl);
+        gl.glPopMatrix();
         
         //tangan kiri
           gl.glPushMatrix();
